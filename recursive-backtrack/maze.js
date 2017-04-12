@@ -14,7 +14,6 @@ function Maze(width, height) {
 }
 
 Maze.prototype.getRandomNeighbor = function(point) {
-  var jump = 2;
   var dirs = [{
     x: -2,
     y: 0
@@ -84,6 +83,7 @@ function mazeIt() {
 // dig the maze
 
 function digMaze(maze) {
+  maze.digCell(maze.finish.x, maze.finish.y - 1);
   var stack = [maze.start];
 
   while (stack.length > 0) {
@@ -92,6 +92,7 @@ function digMaze(maze) {
     while (next = maze.getRandomNeighbor(current)) {
       stack.push(next);
       maze.grid[next.x][next.y] = false;
+      maze.grid[(current.x + next.x) / 2][(current.y + next.y) / 2] = false; //hack
       current = next;
     }
   }
