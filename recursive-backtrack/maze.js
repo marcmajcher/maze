@@ -14,15 +14,36 @@ function Maze(width, height) {
 }
 
 Maze.prototype.getRandomNeighbor = function(point) {
-  if (point.y < 28 && this.grid[point.x][point.y + 1]) {
-    return {
-      x: point.x,
-      y: point.y + 1
+  var jump = 2;
+  var dirs = [{
+    x: -2,
+    y: 0
+  }, {
+    x: 2,
+    y: 0
+  }, {
+    x: 0,
+    y: -2
+  }, {
+    x: 0,
+    y: 2
+  }];
+  var neighbors = [];
+  for (var i = 0; i < dirs.length; i++) {
+    var newPoint = {
+      x: point.x + dirs[i].x,
+      y: point.y + dirs[i].y
     };
-
+    if (newPoint.x > 0 && newPoint.y > 0 &&
+      newPoint.x < this.width - 1 && newPoint.y < this.height - 1 &&
+      this.grid[newPoint.x][newPoint.y]) {
+      neighbors.push(newPoint);
+    }
+  }
+  if (neighbors.length > 0) {
+    return neighbors[Math.floor(Math.random() * neighbors.length)];
   }
   return false;
-
 };
 
 Maze.prototype.digCell = function(x, y) {
@@ -48,13 +69,13 @@ Maze.prototype.setFinish = function(x, y) {
 // called on page load
 
 function mazeIt() {
-  var width = 100;
-  var height = 80;
+  var width = 101;
+  var height = 81;
   var cellSize = 10;
 
   var maze = new Maze(width, height);
   maze.setStart(10, 0);
-  maze.setFinish(width - 12, height - 1);
+  maze.setFinish(width - 11, height - 1);
 
   digMaze(maze);
   renderMaze(maze, cellSize);
