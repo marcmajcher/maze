@@ -5,16 +5,15 @@ function Maze(width, height) {
   this.width = width;
   this.height = height;
   this.grid = [];
+
   for (var x = 0; x < width; x++) {
     this.grid[x] = [];
     for (var y = 0; y < height; y++) {
       this.grid[x][y] = true;
     }
   }
-}
 
-Maze.prototype.getRandomNeighbor = function(point) {
-  var dirs = [{
+  this.dirs = [{
     x: -2,
     y: 0
   }, {
@@ -27,11 +26,14 @@ Maze.prototype.getRandomNeighbor = function(point) {
     x: 0,
     y: 2
   }];
+}
+
+Maze.prototype.getRandomNeighbor = function(point) {
   var neighbors = [];
-  for (var i = 0; i < dirs.length; i++) {
+  for (var i = 0; i < this.dirs.length; i++) {
     var newPoint = {
-      x: point.x + dirs[i].x,
-      y: point.y + dirs[i].y
+      x: point.x + this.dirs[i].x,
+      y: point.y + this.dirs[i].y
     };
     if (newPoint.x > 0 && newPoint.y > 0 &&
       newPoint.x < this.width - 1 && newPoint.y < this.height - 1 &&
