@@ -6,9 +6,9 @@
 
 
 function mazeIt() {
-  var width = 401;
-  var height = 241;
-  var cellSize = 4;
+  var width = 101;
+  var height = 81;
+  var cellSize = 10;
 
   var maze = new Maze(width, height);
 
