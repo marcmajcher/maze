@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="./maze.js"></script>
   <title>Recursive Backtrack</title>
   <style>
     body {
@@ -15,67 +16,6 @@
       border: 1px solid black;
     }
   </style>
-  <script>
-    function mazeIt() {
-      var mazeWidth = 100;
-      var mazeHeight = 80;
-      var cellSize = 10;
-
-      var maze = setupMaze(mazeWidth, mazeHeight);
-      renderMaze(maze, cellSize);
-    }
-
-    // set up maze, just like it says
-
-    function setupMaze(width, height) {
-      var mazeObj = {
-        width: width,
-        height: height,
-        start: {
-          x: 10,
-          y: 0
-        },
-        finish: {
-          x: width - 12,
-          y: height - 1
-        }
-      };
-
-      var grid = [];
-      for (var x = 0; x < width; x++) {
-        grid[x] = [];
-        for (var y = 0; y < height; y++) {
-          grid[x][y] = (x === 0 || y === 0 ||
-            x === width - 1 || y === height - 1);
-        }
-      }
-      grid[mazeObj.start.x][mazeObj.start.y] = false;
-      grid[mazeObj.finish.x][mazeObj.finish.y] = false;
-      mazeObj.grid = grid;
-
-      return mazeObj;
-    }
-
-    // draw that maze
-
-    function renderMaze(maze, cellSize) {
-      var canvas = document.getElementById('mazeCanvas');
-      canvas.width = cellSize * maze.width;
-      canvas.height = cellSize * maze.height;
-      var ctx = canvas.getContext('2d');
-
-      for (var x = 0; x < maze.width; x++) {
-        for (var y = 0; y < maze.height; y++) {
-          ctx.fillStyle = maze.grid[x][y] ?
-            'rgb(0, 0, 0)' :
-            'rgb(255, 255, 255)';
-
-          ctx.fillRect(x * cellSize, y * cellSize, cellSize, cellSize);
-        }
-      }
-    };
-  </script>
-
 </head>
 
 <body onload="mazeIt()">
